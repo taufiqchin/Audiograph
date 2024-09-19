@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Audiogram Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            /* display: flex; */
+            justify-content: space-between;
+            padding: 20px;
+        }
+        table {
+            border-collapse: collapse;
+            margin-right: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+            width: 20%;
+        }
+        th {
+            background-color: #f8e4e4;
+        }
+        canvas {
+            border: 1px solid black;
+            background-color: #fff;
+        }
+        #download-button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div>
+        <!-- <h3>Select User:</h3> 
+        <select id="user-select" onchange="changeUser()">
+            <option value="user1">User 1</option>
+            <option value="user2">User 2</option>
+            <option value="user3">User 3</option>
+        </select>  -->
+
+        <h3>Input Audiogram Data</h3>
+        <table id="audiogram-table">
+            <thead>
+                <tr>
+                    <th>Frequency (Hz)</th>
+                    <th>RE Air</th>
+                    <th>LE Air</th>
+                    <th>RE Air Masked</th>
+                    <th>LE Air Masked</th>
+                    <th>RE Bone</th>
+                    <th>LE Bone</th>
+                    <th>RE Bone Masked</th>
+                    <!-- RE Air , LE Air, RE Air Masked, LE Air Masked, RE Bone, LE Bone, RE Bone Masked, LE Bone Masked -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-frequency="125">
+                    <td>125</td>
+                    <td><input type="number" class="re-air" value="-10" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="250">
+                    <td>250</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="500">
+                    <td>500</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="1000">
+                    <td>1000</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="2000">
+                    <td>2000</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="4000">
+                    <td>4000</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+                <tr data-frequency="8000">
+                    <td>8000</td>
+                    <td><input type="number" class="re-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-air-masked" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="le-bone" oninput="updateAudiogram()" /></td>
+                    <td><input type="number" class="re-bone-masked" oninput="updateAudiogram()" /></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div>
+        <h3>Audiogram</h3>
+        <canvas id="audiogram-chart" width="500" height="400"></canvas>
+        <button id="download-button" onclick="downloadImage()">Download Audiogram</button>
+    </div>
+
+    <script>
+        const frequencies = [63, 125, 250, 500, 1000, 2000, 4000, 8000, 16000];
+        const dBValues = [-10, 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120];
+
+        const canvas = document.getElementById('audiogram-chart');
+        const ctx = canvas.getContext('2d');
+
+        function drawAudiogramGrid() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw frequency lines (vertical)
+            frequencies.forEach((freq, index) => {
+                const x = 30 + (index * 50);
+                ctx.beginPath();
+                ctx.moveTo(x, 50);
+                ctx.lineTo(x, 350);
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = '#ddd';
+                ctx.stroke();
+                ctx.setLineDash([]);
+                if (freq >= 125 && freq <= 8000) {
+                    ctx.fillText(`${freq}`, x - 10, 370);
+                }
+            });
+
+            // Draw dB level lines (horizontal)
+            dBValues.forEach((db, index) => {
+                const y = 50 + (index * 20);
+                ctx.beginPath();
+                ctx.moveTo(30, y);
+                ctx.lineTo(480, y);
+                ctx.setLineDash([5, 5]);
+                ctx.strokeStyle = '#ddd';
+                ctx.stroke();
+                ctx.setLineDash([]);
+                ctx.fillText(`${db} dB`, 0, y + 5);
+            });
+
+            // Axes
+            ctx.strokeStyle = '#000';
+            ctx.beginPath();
+            ctx.moveTo(30, 50);
+            ctx.lineTo(30, 350);
+            ctx.lineTo(480, 350);
+            ctx.stroke();
+        }
+
+        function updateAudiogram() {
+            drawAudiogramGrid();
+
+            // Retrieve input values and plot points
+            const rows = document.querySelectorAll('tbody tr');
+            const reAirPoints = [];
+            const leAirPoints = [];
+
+            rows.forEach((row, index) => {
+                const reAirValue = row.querySelector('.re-air').value;
+                const leAirValue = row.querySelector('.le-air').value;
+
+                if (reAirValue) {
+                    const x = 30 + (index * 50) + 50; // Frequency position
+                    const y = 50 + (reAirValue * 2) + 20; // Inverted dB scaling
+                    reAirPoints.push({ x, y });
+                    drawSymbol(x, y, 'O', 'red'); // RE Air - Red circle
+                }
+
+                if (leAirValue) {
+                    const x = 30 + (index * 50) + 50;
+                    const y = 50 + (leAirValue * 2) + 20; // Inverted dB scaling
+                    leAirPoints.push({ x, y });
+                    drawSymbol(x, y, 'X', 'blue'); // LE Air - Blue X
+                }
+            });
+
+            // Connect RE Air values with red line
+            connectPoints(reAirPoints, 'red');
+            // Connect LE Air values with blue line
+            connectPoints(leAirPoints, 'blue');
+        }
+
+
+        function drawSymbol(x, y, symbol, color) {
+            ctx.fillStyle = color;
+            ctx.font = '16px Arial';
+            ctx.fillText(symbol, x - 5, y + 5);
+        }
+
+        function connectPoints(points, color) {
+            if (points.length > 1) {
+                ctx.strokeStyle = color;
+                ctx.beginPath();
+                ctx.moveTo(points[0].x, points[0].y);
+                for (let i = 1; i < points.length; i++) {
+                    ctx.lineTo(points[i].x, points[i].y);
+                }
+                ctx.stroke();
+            }
+        }
+
+        function downloadImage() {
+            const link = document.createElement('a');
+            link.download = 'audiogram.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+
+        // Draw the grid and audiogram at page load
+        window.onload = function() {
+            drawAudiogramGrid();
+        }
+    </script>
+</body>
+</html>
